@@ -1,0 +1,44 @@
+name: Publish release data
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update_release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Ensure permissions are set to write for contents
+      actions: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # Ensure this matches the version you need
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
+          # Add any other dependencies if needed
+
+      - name: Execute script and generate data
+        run: python release.py ${{ github.event.release.tag_name }}
+
+      - name: Debug upload URL
+        run: "echo \"Upload URL: ${{ github.event.release.upload_url }}\""
+
+      - name: Upload deployment data to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./release/release_data.json
+          asset_name: release_data.json
+          asset_content_type: application/json
