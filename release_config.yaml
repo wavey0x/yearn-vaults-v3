@@ -1,0 +1,12 @@
+contracts:
+  VaultFactory:
+    should_deploy: true
+    default_constructor_args:
+      - "Vault V3"
+      - "0x6f3cBE2ab3483EC4BA7B672fbdCa0E9B33F88db8" # initGov
+      - "0x1234567890abcdef1234567890abcdef12345678"
+  VaultV3:
+    should_deploy: true
+    # default_constructor_args:
+    #   - "arg1_value"
+    #   - "arg2_value"
