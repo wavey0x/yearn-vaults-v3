@@ -31,7 +31,7 @@ jobs:
         run: python release.py ${{ github.event.release.tag_name }}
 
       - name: Debug upload URL
-        run: echo "Upload URL: ${{ github.event.release.upload_url }}"
+        run: "echo \"Upload URL: ${{ github.event.release.upload_url }}\""
 
       - name: Upload deployment data to release
         uses: actions/upload-release-asset@v1
