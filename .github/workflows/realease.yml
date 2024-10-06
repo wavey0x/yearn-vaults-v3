@@ -1,4 +1,4 @@
-name: Update Release with Deployment Data
+name: Publish release data
 
 on:
   release:
