@@ -7,6 +7,11 @@ on:
 jobs:
   update_release:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Ensure permissions are set to write for contents
+      actions: read
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -24,6 +29,9 @@ jobs:
 
       - name: Execute script and generate data
         run: python release.py ${{ github.event.release.tag_name }}
+
+      - name: Debug upload URL
+        run: echo "Upload URL: ${{ github.event.release.upload_url }}"
 
       - name: Upload deployment data to release
         uses: actions/upload-release-asset@v1
