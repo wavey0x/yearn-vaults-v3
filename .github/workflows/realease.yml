@@ -10,7 +10,7 @@ jobs:
 
     permissions:
       contents: write  # Ensure permissions are set to write for contents
-      actions: read
+      actions: write
 
     steps:
       - name: Checkout code
